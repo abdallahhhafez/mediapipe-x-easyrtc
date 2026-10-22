@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Tenant palette. Defaults are the lime accent run through derivePalette(),
+     so the app looks the same at first paint as it does once applyBrand() or a
+     patient's own accent takes over. */
+  :root {
+    --c-canvas: 234 235 229;
+    --c-surface: 255 255 255;
+    --c-sunken: 242 244 236;
+    --c-ink: 24 23 19;
+    --c-muted: 123 122 115;
+    --c-hairline: 221 223 213;
+
+    /* The accent ramp — every one of these is derived from a single picked hex. */
+    --c-accent: 216 244 92;
+    --c-accent-ink: 31 36 8;
+    --c-accent-soft: 230 242 195;
+    --c-accent-muted: 216 230 170;
+    --c-accent-deep: 82 96 0;
+    --c-accent-surface: 42 51 0;
+
+    /* Status. Foregrounds clear 4.5:1 on white and on their own soft chip. */
+    --c-ok: 31 111 78;
+    --c-ok-soft: 231 245 237;
+    --c-warn: 131 101 0;
+    --c-warn-soft: 247 241 225;
+    --c-info: 0 112 179;
+    --c-info-soft: 227 244 255;
+    --c-danger: 166 48 27;
+    --c-danger-soft: 255 234 228;
+  }
+
+  /* Accessible colour vision.
+     Green-vs-red is the pair most commonly confused, and red is worse than it
+     looks: under protanopia and deuteranopia it collapses onto the amber used
+     for "pending" as well. Moving "cancelled" to purple and deepening the green
+     keeps all four status colours separable — worst-case pairwise distance goes
+     from ΔE 0.017 to 0.113 across simulated protan/deutan/tritan vision.
+     Amber and blue already survive all three, so they are left alone. */
+  :root[data-color-vision='cvd'] {
+    --c-ok: 8 86 52;
+    --c-ok-soft: 232 245 236;
+    --c-danger: 105 34 120;
+    --c-danger-soft: 251 235 254;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+  /* Numbers in schedules and prices should never jitter as they change. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface rounded-card shadow-soft;
+  }
+  .field {
+    @apply w-full rounded-full bg-surface border border-hairline px-5 py-3.5 text-[15px]
+           placeholder:text-muted outline-none transition
+           focus:border-ink/30 focus:ring-4 focus:ring-ink/5;
+  }
+  .label {
+    @apply block text-[13px] font-semibold text-muted mb-1.5 ml-1;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-sunken px-3 py-1.5 text-[13px] font-medium text-ink;
+  }
+  .skeleton {
+    @apply relative overflow-hidden bg-sunken;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6d6d1;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@vitalwatch/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./metrics.js": "./metrics.js",
+    "./bands.js": "./bands.js",
+    "./news2.js": "./news2.js",
+    "./detector.js": "./detector.js"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Generated training data — regenerate with tools/digit-model/generate_dataset.py
+tools/digit-model/dataset/
+tools/digit-model/__pycache__/
+
+# Trained model. Not committed: the reader falls back to the seven-segment
+# decoder without it, and a binary that has to be regenerated whenever
+# segments.js changes does not belong in history.
+client/public/mediapipe/digits.task
